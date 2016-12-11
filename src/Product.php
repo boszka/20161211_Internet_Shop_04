@@ -11,6 +11,7 @@ class Product {
     private $name;
     private $description;
     private $price;
+    private $category;
     private $qty;
     
     public function __construct() {
@@ -20,6 +21,7 @@ class Product {
         $this->description = '';
         $this->price = 0;
         $this->qty = 0;
+        $this->categoryId = -1;
     }
     
     public function getId() {
@@ -33,6 +35,11 @@ class Product {
     public function getDescription() {
         return $this->description;
     }
+    
+    public function getCategoryId() {
+        return $this->categoryId;
+    }
+    
     
     public function getPrice() {
         return $this->price;
@@ -48,6 +55,10 @@ class Product {
     
     public function setDescription($newDescription) {
         $this->description = $newDescription;
+    }
+    
+    public function setCategoryId($newCategoryId) {
+        $this->categoryId = $newCategoryId;
     }
     
     public function setPrice($newPrice) {
