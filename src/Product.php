@@ -5,14 +5,16 @@
  *
  * @author kasia
  */
+
 class Product {
  
     private $id;
     private $name;
     private $description;
     private $price;
-    private $category;
-    private $qty;
+    private $quantity;
+    private $groupId;
+    private $deleted;
     
     public function __construct() {
 
@@ -20,8 +22,9 @@ class Product {
         $this->name = '';
         $this->description = '';
         $this->price = 0;
-        $this->qty = 0;
-        $this->categoryId = -1;
+        $this->quantity = 0;
+        $this->groupId = -1;
+        $this->deleted = false;
     }
     
     public function getId() {
@@ -36,39 +39,63 @@ class Product {
         return $this->description;
     }
     
-    public function getCategoryId() {
-        return $this->categoryId;
-    }
-    
-    
     public function getPrice() {
         return $this->price;
     }
     
-    public function getQty() {
+    public function getQuantity() {
         return $this->Qty;
     }
     
+    public function getGroupId() {
+        return $this->groupId;
+    }
+    
+    
+    public function isDeleted() {
+        return $this->deleted;
+    }
+    
     public function setName($newName) {
-        $this->name = $newName;
+        if (is_string($newName)) {
+            $this->name = $newName;
+        }
+        return $this;
     }
     
     public function setDescription($newDescription) {
-        $this->description = $newDescription;
-    }
-    
-    public function setCategoryId($newCategoryId) {
-        $this->categoryId = $newCategoryId;
+        if (is_string($newDescription)) {
+            $this->description = $newDescription;
+        } 
+        return $this;
     }
     
     public function setPrice($newPrice) {
-        $this->price = $newPrice;
+        if (is_numeric($newPrice)) {
+            $this->price = $newPrice;
+        }
+        return $this;
     }
     
-    public function setQty($newQty) {
-        $this->qty = $newQty;
+    public function setQuantity($newQuantity) {
+        if (is_numeric($newQuantity)) {
+            $this->quantity = $newQuantity;
+        }
+        return $this;
     }
-
+    
+    public function setGroupId($newGroupId) {
+        if (is_integer($newGroupId)) {
+            $this->groupId = $newGroupId;
+        }
+        return $this;
+    }
+    
+    public function setDeleted() {
+        $this->deleted = true;
+        return $this;
+    }
+    
 
 
 }
