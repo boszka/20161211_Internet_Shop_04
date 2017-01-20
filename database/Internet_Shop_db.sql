@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 20, 2017 at 12:05 AM
+-- Generation Time: Jan 20, 2017 at 01:38 PM
 -- Server version: 5.5.50-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.20
 
@@ -58,7 +58,8 @@ CREATE TABLE IF NOT EXISTS `Image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `productId` int(11) NOT NULL,
   `path` text NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `Image_ibfk_1` (`productId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -172,6 +173,12 @@ CREATE TABLE IF NOT EXISTS `User` (
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `Image`
+--
+ALTER TABLE `Image`
+  ADD CONSTRAINT `Image_ibfk_1` FOREIGN KEY (`productId`) REFERENCES `Product` (`id`);
 
 --
 -- Constraints for table `Message`
