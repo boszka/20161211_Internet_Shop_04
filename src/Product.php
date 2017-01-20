@@ -43,7 +43,7 @@ class Product {
     }
 
     public function getQuantity() {
-        return $this->Qty;
+        return $this->quantity;
     }
 
     public function getGroupId() {
@@ -162,7 +162,8 @@ class Product {
         if (!is_integer($id)) {
             return null;
         }
-        $sql = "SELECT * "
+        
+        $sql =    "SELECT * "
                 . "FROM Product "
                 . "WHERE id=$id";
 
@@ -192,9 +193,9 @@ class Product {
         if ($this->id == -1) {
 
 
-            $sql = "INSERT INTO Product(name, description, price, groupId, quantity, deleted)
+            $sql = "INSERT INTO Product(name, description, price,  quantity, groupId, deleted)
                     VALUES ('$this->name','$this->description', '$this->price', "
-                 . "'$this->groupId', '$this->quantity', '$this->deleted' )";
+                 . " '$this->quantity', '$this->groupId', '$this->deleted' )";
 
             if ($conn->query($sql)==true) {
                 $this->id = $conn->insert_id;
@@ -204,11 +205,13 @@ class Product {
         } else {
             
             $sql =    "UPDATE Product "
-                    . "SET groupId ='$this->groupId', "
-                    . "name='$this->name', price='$this->price', "
+                    . "SET name='$this->name',"
                     . "description='$this->description',"
-                    . "quantity ='$this->quantity', "
-                    . "deleted='$this->deleted'  WHERE id=$this->id";
+                    . "price='$this->price', "
+                    . "quantity ='$this->quantity',"
+                    . "groupId ='$this->groupId', "
+                    . "deleted='$this->deleted'  "
+                    . "WHERE id=$this->id";
        
             if ($conn->query($sql)==true) {
                 return true;
@@ -216,5 +219,25 @@ class Product {
         }
 
         return false;
+    }
+    
+    //usuwanie produktu
+    
+    public function deleteProduct (mysqli $conn) {
+       
+        if ($this->id != -1) {
+            $sql = "DELETE FROM Product "
+                    . "WHERE id=$this->id";
+          
+            if ($conn->query($sql) == true) {
+                // nawet po usunięciu obiekt z właściwościami w bazie danych 
+                // będzie istniał dlatego dajemy mu -1, strona się odświeża
+                
+                $this->id = -1;
+                return true;
+            }
+            return false;
+        }
+        return true;
     }
 }
